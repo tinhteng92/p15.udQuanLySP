@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        tr:nth-child(odd){
+            background: aliceblue;
+        }
+        table{
+            width: 70%;
+        }
+    </style>
+</head>
+<body>
+<div align="center">
+    <h2>Add New Product</h2>
+    <input placeholder="New Product" id="nameP"><br>
+    <input placeholder="image" id="imageP"><br>
+    <button onclick="create()">Add Product</button>
+    <button onclick="saveEdit()">Edit Product</button>
+    <br>
+    <br>
+    <table id="display" style="...">
+
+    </table>
+</div>
+
+</body>
+</html>
+<script>
+    let products = ['Sony Xperia']
+
+    function create() {
+        let name = document.getElementById('nameP').value;
+        products.push(name);
+
+        show();
+        document.getElementById('nameP').value = '';
+    }
+    function show(){
+        let str = '';
+        for (let i = 0; i < products.length;i++){
+            str += "<tr>"
+            str += `<td>${i+1}</td>`
+            str += `<td>${products[i]}</td>`
+            str += `<td><button onclick="showEdit(${i})">Edit</button></td>`
+            str += `<td><button onclick="deleteP(${i})">Delete</button></td>`
+            str += "</tr>"
+        }
+        document.getElementById('display').innerHTML = str;
+    }
+    let indexEdit = -1;
+    function showEdit(index) {
+        document.getElementById('nameP').value = products[index];
+        indexEdit = index;
+
+    }
+    function saveEdit(){
+        let name = document.getElementById('nameP').value;
+        products[indexEdit] = name;
+        show();
+        indexEdit = -1;
+        document.getElementById('nameP').value = '';
+    }
+    function deleteP(index){
+        products.splice(index,1);
+        show();
+    }
+    show();
+</script>
